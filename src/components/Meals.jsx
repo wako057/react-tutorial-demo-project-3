@@ -1,6 +1,6 @@
 import {getMeals} from "../https";
 import {useEffect, useState} from "react";
-import MealItem from "./MailItem";
+import MealItem from "./MealItem";
 
 export default function Meals() {
   const [ mealsFetched, setMealsFetched ] = useState([]);
