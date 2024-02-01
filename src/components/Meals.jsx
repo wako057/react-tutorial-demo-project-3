@@ -8,7 +8,7 @@ export default function Meals() {
   useEffect(() => {
     async function fetchMeals() {
       const meals = await getMeals();
-      console.log(meals);
+      // console.log(meals);
       setMealsFetched(meals);
     }
     fetchMeals();
