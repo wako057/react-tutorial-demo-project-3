@@ -24,7 +24,8 @@ export default function Checkout() {
     data,
     isLoading: isSending,
     error,
-    sendRequest
+    sendRequest,
+    clearData
   } = useHttp('http://localhost:3000/orders', requestConfig);
 
   function handleClose() {
@@ -34,6 +35,7 @@ export default function Checkout() {
   function handleFinish() {
     userProgressCtx.hideCheckout();
     cartCtx.clearCart();
+    clearData()
   }
 
   function handleSubmit(event) {
