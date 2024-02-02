@@ -5,6 +5,7 @@ import {currencyFormatter} from "../utils/formatting";
 import Input from "./ui/Input";
 import Button from "./ui/Button";
 import UserProgressContext from "../stores/UserProgressContext";
+import {postOrder} from "../https";
 
 export default function Checkout() {
   const cartCtx = useContext(CartContext);
@@ -15,12 +16,24 @@ export default function Checkout() {
     userProgressCtx.hideCheckout();
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const fd = new FormData(event.target);
+    const customerData = Object.fromEntries(fd.entries());
+    console.log(customerData);
+    postOrder({
+      items: cartCtx.items,
+      customer: customerData
+    });
+  }
+
   return (
     <Modal open={userProgressCtx.progress === 'checkout'} onClose={handleClose}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>Checkout</h2>
         <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
-        <Input label="Fullname" type="text" id="full-name" />
+        <Input label="Fullname" type="text" id="name" />
         <Input label="E-Mail Address" type="email" id="email" />
         <Input label="Street" type="text" id="street" />
         <div className="control-row">
@@ -29,7 +42,7 @@ export default function Checkout() {
         </div>
         <p className={"modal-actions"}>
           <Button type={"button"} textOnly onClick={handleClose}>Close</Button>
-          <Button textOnly>Submit Order</Button>
+          <Button>Submit Order</Button>
         </p>
       </form>
     </Modal>

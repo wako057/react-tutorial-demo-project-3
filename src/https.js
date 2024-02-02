@@ -1,6 +1,8 @@
+
+const API_URL = 'http://localhost:3000'
 export async function getMeals() {
   try {
-    const response = await fetch('http://localhost:3000/meals');
+    const response = await fetch(`${API_URL}/meals`);
     if (false === response.ok) {
       return [];
     }
@@ -10,4 +12,23 @@ export async function getMeals() {
     console.log(error);
   }
   return [];
+}
+
+export async function postOrder({ items, customer }) {
+  try {
+    const response = await fetch(`${API_URL}/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        order: {
+          items,
+          customer
+        }
+      })
+    })
+  } catch (error) {
+    console.log(error);
+  }
 }
