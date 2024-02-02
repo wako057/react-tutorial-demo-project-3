@@ -1,5 +1,6 @@
 
 const API_URL = 'http://localhost:3000'
+
 export async function getMeals() {
   try {
     const response = await fetch(`${API_URL}/meals`);
